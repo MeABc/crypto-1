@@ -277,7 +277,7 @@ func (m *Manager) HTTPHandler(fallback http.Handler) http.Handler {
 		}
 		data, err := m.httpToken(ctx, r.URL.Path)
 		if err != nil {
-			http.Error(w, err.Error(), http.StatusNotFound)
+			fallback.ServeHTTP(w, r)
 			return
 		}
 		w.Write(data)
